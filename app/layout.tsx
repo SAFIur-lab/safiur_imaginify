@@ -3,7 +3,7 @@ import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Variable } from "lucide-react";
+// import { Variable } from "lucide-react";
 
 const IbmPlex = IBM_Plex_Sans({
    subsets: ["latin"],
