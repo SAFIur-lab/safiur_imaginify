@@ -123,7 +123,7 @@ export const download = (url: string, filename: string) => {
     .catch((error) => console.log({ error }));
 };
 
-// DEEP MERGE OBJECTS
+// DEEP MERGE OBJECTS (FIXED ESLINT ERRORS)
 export const deepMergeObjects = (
   obj1: Record<string, unknown>,
   obj2: Record<string, unknown>
@@ -132,9 +132,9 @@ export const deepMergeObjects = (
     return obj1;
   }
 
-  let output = { ...obj2 };
+  const output = { ...obj2 }; // ✅ Changed to const
 
-  for (let key in obj1) {
+  for (const key in obj1) { // ✅ Changed to const
     if (Object.prototype.hasOwnProperty.call(obj1, key)) {
       if (
         obj1[key] &&

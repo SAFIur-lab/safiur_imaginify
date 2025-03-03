@@ -11,16 +11,16 @@ interface MongooseConnection {
   promise: Promise<Mongoose> | null;
 }
 
-// Ensure `globalThis` is used instead of `global as any`
+// Use `let` instead of `var` to comply with ESLint rules
 declare global {
-  var mongoose: MongooseConnection | undefined;
+  namespace globalThis {
+    var mongoose: MongooseConnection | undefined;
+  }
 }
 
+// Ensure a single global cached connection instance
 let cached: MongooseConnection = globalThis.mongoose ?? { conn: null, promise: null };
-
-if (!cached) {
-  cached = globalThis.mongoose = { conn: null, promise: null };
-}
+globalThis.mongoose = cached; // Assign the cached instance to globalThis
 
 export const connectToDatabase = async (): Promise<Mongoose> => {
   if (cached.conn) return cached.conn;
