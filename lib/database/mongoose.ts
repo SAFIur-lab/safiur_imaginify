@@ -11,16 +11,20 @@ interface MongooseConnection {
   promise: Promise<Mongoose> | null;
 }
 
-// Use `let` instead of `var` to comply with ESLint rules
+// Global type declaration (using var for TypeScript merging)
 declare global {
-  namespace globalThis {
-    var mongoose: MongooseConnection | undefined;
-  }
+  // eslint-disable-next-line no-var
+  var mongoose: MongooseConnection | undefined;
 }
 
-// Ensure a single global cached connection instance
-let cached: MongooseConnection = globalThis.mongoose ?? { conn: null, promise: null };
-globalThis.mongoose = cached; // Assign the cached instance to globalThis
+// Use const for never-reassigned variable
+const cached: MongooseConnection = globalThis.mongoose ?? {
+  conn: null,
+  promise: null,
+};
+
+// Assign to globalThis once
+globalThis.mongoose = cached;
 
 export const connectToDatabase = async (): Promise<Mongoose> => {
   if (cached.conn) return cached.conn;
