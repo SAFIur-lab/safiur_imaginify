@@ -5,11 +5,6 @@ import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-<<<<<<< HEAD
-// import { useState, useEffect } from 'react'
-=======
-
->>>>>>> 6243a8ce230f5509422dbd664555024d889ec8d0
 import { Button } from '../ui/button'
 
 const Sidebar = () => {
