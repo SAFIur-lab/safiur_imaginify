@@ -32,7 +32,7 @@ export const connectToDatabase = async (): Promise<Mongoose> => {
   cached.promise =
     cached.promise ||
     mongoose.connect(MONGODB_URL, {
-      dbName: "Safiur_imaginify",
+      dbName: "imaginify",
       bufferCommands: false,
     });
 
