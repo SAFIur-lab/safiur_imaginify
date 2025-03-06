@@ -4,10 +4,10 @@ import MobileNav from '@/components/shared/MobileNav';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="Root">
+    <main className="root">
       <Sidebar />
       <MobileNav />
-        <div className='Root-container'>
+        <div className='root-containe'>
             <div className='wrapper'>
                 {children}
 
