@@ -7,12 +7,10 @@ import { getUserById } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 
 interface PageProps {
-  params: {
-    type: string;
-  };
+  params: { type: string };
 }
 
-const AddTransformationPageType = async ({ params }: Awaited<PageProps>) => {
+const AddTransformationPageType = async ({ params }: PageProps) => {
   const { type } = params;
   const { userId } = await auth();
 
