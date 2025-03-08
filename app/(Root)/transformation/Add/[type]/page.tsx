@@ -6,10 +6,9 @@ import { auth } from '@clerk/nextjs/server';
 import { getUserById } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 
-// Define the expected params type
 interface PageProps {
   params: {
-    type: TransformationTypeKey;
+    type: string; // Use string if TransformationTypeKey isn't correctly inferred
   };
 }
 
@@ -19,7 +18,12 @@ const AddTransformationPageType = async ({ params }: PageProps) => {
 
   if (!userId) redirect('/sign-in');
 
-  const transformation = transformationTypes[type];
+  const transformation = transformationTypes[type as TransformationTypeKey];
+
+  if (!transformation) {
+    redirect('/error'); // Handle invalid transformation type
+  }
+
   const user = await getUserById(userId);
 
   return (
