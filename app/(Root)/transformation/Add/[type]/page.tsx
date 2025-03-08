@@ -8,11 +8,11 @@ import { redirect } from 'next/navigation';
 
 interface PageProps {
   params: {
-    type: string; // Use string if TransformationTypeKey isn't correctly inferred
+    type: string;
   };
 }
 
-const AddTransformationPageType = async ({ params }: PageProps) => {
+const AddTransformationPageType = async ({ params }: Awaited<PageProps>) => {
   const { type } = params;
   const { userId } = await auth();
 
@@ -21,7 +21,7 @@ const AddTransformationPageType = async ({ params }: PageProps) => {
   const transformation = transformationTypes[type as TransformationTypeKey];
 
   if (!transformation) {
-    redirect('/error'); // Handle invalid transformation type
+    redirect('/error'); // Redirect if the transformation type is invalid
   }
 
   const user = await getUserById(userId);
