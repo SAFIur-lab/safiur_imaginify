@@ -6,7 +6,6 @@ import { auth } from '@clerk/nextjs/server';
 import { getUserById } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 
-
 interface PageProps {
   params: { type: string };
 }
