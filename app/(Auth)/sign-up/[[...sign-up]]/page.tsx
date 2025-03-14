@@ -3,7 +3,7 @@ import React from 'react'
 
 const signUpPage = () => {
   return (
-    <SignUp />  
+    <SignUp routing="hash"  />  
   )
 }
 
