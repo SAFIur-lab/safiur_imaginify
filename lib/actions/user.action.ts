@@ -3,7 +3,8 @@ import { revalidatePath } from "next/cache";
 import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
-import { clerkClient } from "@clerk/clerk-sdk-node";
+import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
 // CREATE
 export async function createUser(user: CreateUserParams) {
@@ -25,15 +26,15 @@ export async function getUserById(userId: string) {
     if (!user) {
       // If user not found, try to get user data from Clerk and create them
       try {
-        const clerkUserData = await clerkClient.users.getUser(userId);
-        if (clerkUserData) {
+        const clerkUser = await currentUser();
+        if (clerkUser) {
           const newUser = {
             clerkId: userId,
-            email: clerkUserData.emailAddresses[0].emailAddress,
-            username: clerkUserData.username || '',
-            firstName: clerkUserData.firstName || '',
-            lastName: clerkUserData.lastName || '',
-            photo: clerkUserData.imageUrl,
+            email: clerkUser.emailAddresses[0].emailAddress,
+            username: clerkUser.username || '',
+            firstName: clerkUser.firstName || '',
+            lastName: clerkUser.lastName || '',
+            photo: clerkUser.imageUrl,
           };
           return await createOrGetUser(newUser);
         }
